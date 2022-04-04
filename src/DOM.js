@@ -20,20 +20,20 @@ export function appendToBody(tag, content, count) {
   Сформированное дерево верните в качестве результата работы функции.
 */
 export function generateTree(childrenCount, level) {
-    let rootDiv = document.createElement('div');
-    rootDiv.setAttribute('class', 'item_1');
-
-    for (let i = 1; i <= level; i++) {
-        let parentDiv = document.createElement('div');
-        parentDiv.setAttribute('class', 'item_2');
-        for (let j = 1; j <= childrenCount; j++) {
-            let childDiv = document.createElement('div');
-            childDiv.setAttribute('class', 'item_3');
-            parentDiv.appendChild(childDiv);
+    document.body.insertAdjacentHTML('beforeend', `<div class='item_1'></div>`);
+    let elements = document.getElementsByClassName('item_1');
+    for (let i = 2; i <= level; i++) {
+        for (let n of elements) {
+            for (let j = 0; j < childrenCount; j++) {
+                n.insertAdjacentHTML(
+                    'beforeend',
+                    `<div class='item_${i}'></div>`,
+                );
+            }
         }
-        rootDiv.appendChild(parentDiv);
+        elements = document.getElementsByClassName(`item_${i}`);
     }
-    return rootDiv;
+    return document.getElementsByClassName('item_1')[0];
 }
 
 /*
